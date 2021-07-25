@@ -38,7 +38,6 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             title: 'development',
-            favicon: './asset/favicon.ico',
             template: './src/index.html',
             chunks: ['css', 'index', 'app', 'system', 'monitor']
         })
@@ -46,6 +45,7 @@ module.exports = {
     devServer: {
         host: 'localhost',
         contentBase: path.join(__dirname, 'dist'),
+        watchContentBase: true,
         compress: true,
         hot: true,
         inline: true,
