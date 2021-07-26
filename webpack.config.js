@@ -13,7 +13,8 @@ module.exports = {
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
         compress: true,
-        port: 9000,
+        overlay:true,
+        port: 3000,
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -34,6 +35,20 @@ module.exports = {
                 test: /\.(woff|woff2|eot|ttf|otf)$/i,
                 type: 'asset/resource',
             },
+            {
+                test: /\.js$/,
+                include: [
+                    path.resolve(__dirname, 'src/js')
+                ],
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env'],
+                        plugins: ['@babel/plugin-proposal-class-properties']
+                    }
+                }
+            }
         ],
     },
 }

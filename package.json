@@ -7,7 +7,9 @@
     "watch": "webpack --watch",
     "build": "webpack"
   },
-  "dependencies": {},
+  "dependencies": {
+    "babel-loader": "^8.2.2"
+  },
   "devDependencies": {
     "css-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.2",
