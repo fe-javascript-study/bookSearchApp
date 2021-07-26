@@ -2,10 +2,8 @@
 ## 책검색어플
 
 ### 실행 명령어
-터미널 ```yarn dev```
-``` 
-"dev": "webpack serve --open --mode development"
-```
+
+```yarn start```
 
 ### 프로젝트 화면
 
