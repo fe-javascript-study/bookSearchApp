@@ -1,55 +1,39 @@
-const { resolve } = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require("path")
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     mode: 'development',
     entry: './src/index.js',
-    output: {
-        filename: 'bundle.js',
-        path: resolve(__dirname, 'dist')
-    },
     devtool: 'inline-source-map',
-    module: {
-        rules: [
-            {
-                test: /\.css$/,
-                use: [
-                    'style-loader',
-                    'css-loader'
-                ]
-            },
-            {
-                test: /\.(png|svg|jpe?g|gif)$/,
-                loader: 'file-loader',
-                options: {
-                    name: '[hash].[ext]'
-                }
-            },
-            {
-                test: /\.(png|svg|jpe?g|gif)$/,
-                loader: 'url-loader',
-                options: {
-                    limit: 10000
-                }
-            }
-        ]
+    output: {
+        filename: '[name].main.js',
+        path: path.resolve(__dirname,'dist'),
+        clean: true,
+    },
+    devServer: {
+        contentBase: path.join(__dirname, 'dist'),
+        compress: true,
+        port: 9000,
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'development',
-            template: './src/index.html',
-            chunks: ['css', 'index', 'app', 'system', 'monitor']
-        })
+            title: 'Development',
+        }),
     ],
-    devServer: {
-        host: 'localhost',
-        contentBase: path.join(__dirname, 'dist'),
-        watchContentBase: true,
-        compress: true,
-        hot: true,
-        inline: true,
-        port: 3000,
-        open: true
-    }
+    module: {
+        rules: [
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
+            },
+            {
+                test: /\.(png|svg|jpg|jpeg|gif)$/i,
+                type: 'asset/resource',
+            },
+            {
+                test: /\.(woff|woff2|eot|ttf|otf)$/i,
+                type: 'asset/resource',
+            },
+        ],
+    },
 }
