@@ -1,31 +1,33 @@
-import axios from "axios";
-import API_KEY from "./API_KEY";
+import { bookApi } from './api'
 
-axios.interceptors.request.use(
-    (config)=> {
-        config.baseURL = 'https://dapi.kakao.com/v3/search/'
-        config.headers.Authorization = `KakaoAK ${API_KEY}`
-        return config;
-    },
-     (error) => {
-        return Promise.reject(error);
+import { validate } from './util'
+
+import SearchInput from './components/SearchInput'
+
+function App ({$target}){
+    this.state = [];
+    this.$app = document.createElement('div');
+    this.$app.className = 'search-box';
+    $target.appendChild(this.$app)
+
+    const searchInput = new SearchInput({
+        $app:this.$app,
+        onSearch: async (keyword) => {
+            try{
+                if(keyword.length){
+                    const { data } = await bookApi(keyword)
+                    await this.setState(data.documents, keyword)
+                }
+            }catch (e){
+                throw new Error(e)
+            }
+        }
+    })
+
+    this.setState = (nextState, keyword) => {
+        validate(nextState)
+        this.state = nextState
     }
-);
-
-axios.interceptors.response.use(
-    function (response) {
-        return response;
-    },
-    function (error) {
-        return Promise.reject(error);
-    });
-
-const bookApi = () =>{
-    return axios.post('book?query=토지',{
-        query:'토지'
-    }).then((data)=>{
-        console.log('book-data', data)
-    });
 }
 
-bookApi()
+new App({$target:document.querySelector('#main')})
