@@ -1,22 +1,31 @@
 import axios from "axios";
 import API_KEY from "./API_KEY";
-import './style.css'
 
-const instance = axios.create({
-    baseURL: 'https://dapi.kakao.com/v3/search/',
-    headers: {
-        'Authorization': `KakaoAK ${API_KEY}`
+axios.interceptors.request.use(
+    (config)=> {
+        config.baseURL = 'https://dapi.kakao.com/v3/search/'
+        config.headers.Authorization = `KakaoAK ${API_KEY}`
+        return config;
     },
-});
+     (error) => {
+        return Promise.reject(error);
+    }
+);
+
+axios.interceptors.response.use(
+    function (response) {
+        return response;
+    },
+    function (error) {
+        return Promise.reject(error);
+    });
 
 const bookApi = () =>{
-    return instance.post('book?query=토지',{
+    return axios.post('book?query=토지',{
         query:'토지'
     }).then((data)=>{
         console.log('book-data', data)
-    }).catch((e)=>{
-        console.warn('bookApi:' + e)
-    })
+    });
 }
 
 bookApi()

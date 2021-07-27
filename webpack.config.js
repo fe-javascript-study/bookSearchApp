@@ -7,7 +7,7 @@ module.exports = {
     entry: './src/index.js',
     devtool: 'inline-source-map',
     output: {
-        filename: '[name].main.js',
+        filename: '[name].js',
         path: path.resolve(__dirname,'dist'),
         clean: true,
     },
@@ -19,7 +19,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: '책검색API',
+            template: './src/index.html'
         }),
         new Dotenv()
     ],
