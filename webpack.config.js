@@ -1,12 +1,13 @@
 const path = require("path")
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const Dotenv = require('dotenv-webpack')
 
 module.exports = {
     mode: 'development',
     entry: './src/index.js',
     devtool: 'inline-source-map',
     output: {
-        filename: '[name].main.js',
+        filename: '[name].js',
         path: path.resolve(__dirname,'dist'),
         clean: true,
     },
@@ -18,8 +19,9 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Development',
+            template: './src/index.html'
         }),
+        new Dotenv()
     ],
     module: {
         rules: [

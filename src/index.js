@@ -1,18 +1,31 @@
-import './style.css'
-import Icon from './img_test.png'
+import axios from "axios";
+import API_KEY from "./API_KEY";
 
-function component() {
-    const element = document.createElement('div')
+axios.interceptors.request.use(
+    (config)=> {
+        config.baseURL = 'https://dapi.kakao.com/v3/search/'
+        config.headers.Authorization = `KakaoAK ${API_KEY}`
+        return config;
+    },
+     (error) => {
+        return Promise.reject(error);
+    }
+);
 
-    element.innerHTML = 'Hello Webpack!!3'
-    element.classList.add('hello')
+axios.interceptors.response.use(
+    function (response) {
+        return response;
+    },
+    function (error) {
+        return Promise.reject(error);
+    });
 
-    const myIcon = new Image()
-    myIcon.src = Icon
-
-    element.appendChild(myIcon)
-
-    return element
+const bookApi = () =>{
+    return axios.post('book?query=토지',{
+        query:'토지'
+    }).then((data)=>{
+        console.log('book-data', data)
+    });
 }
 
-document.body.appendChild(component())
+bookApi()
