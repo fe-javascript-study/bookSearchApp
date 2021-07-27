@@ -1,18 +1,22 @@
+import axios from "axios";
+import API_KEY from "./API_KEY";
 import './style.css'
-import Icon from './img_test.png'
 
-function component() {
-    const element = document.createElement('div')
+const instance = axios.create({
+    baseURL: 'https://dapi.kakao.com/v3/search/',
+    headers: {
+        'Authorization': `KakaoAK ${API_KEY}`
+    },
+});
 
-    element.innerHTML = 'Hello Webpack!!3'
-    element.classList.add('hello')
-
-    const myIcon = new Image()
-    myIcon.src = Icon
-
-    element.appendChild(myIcon)
-
-    return element
+const bookApi = () =>{
+    return instance.post('book?query=토지',{
+        query:'토지'
+    }).then((data)=>{
+        console.log('book-data', data)
+    }).catch((e)=>{
+        console.warn('bookApi:' + e)
+    })
 }
 
-document.body.appendChild(component())
+bookApi()

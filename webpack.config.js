@@ -1,5 +1,6 @@
 const path = require("path")
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const Dotenv = require('dotenv-webpack')
 
 module.exports = {
     mode: 'development',
@@ -18,8 +19,9 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Development',
+            title: '책검색API',
         }),
+        new Dotenv()
     ],
     module: {
         rules: [
