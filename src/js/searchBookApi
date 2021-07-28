@@ -1,0 +1,3 @@
+function searchBookApi(){
+    console.log(document.getElementById('nameBook').value);
+}
