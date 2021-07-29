@@ -6,7 +6,12 @@ function SearchInput ({ $app, onSearch }){
     this.onSearch = (keyword) => debounce(() => onSearch(keyword), 600)
     $app.appendChild(this.$searchInput)
 
-    this.$searchInput.addEventListener('keyup', ({target})=>{
+    this.$searchInput.focus()
+    this.$searchInput.addEventListener('keyup', (e)=>{
+        const { target } = e
+        if(e.keyCode !== 13){
+            return;
+        }
         this.onSearch(target.value)
     })
 }

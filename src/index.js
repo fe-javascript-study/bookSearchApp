@@ -3,8 +3,9 @@ import { bookApi } from './api'
 import { validate } from './util'
 
 import SearchInput from './components/SearchInput'
+import SearchBookList from "./components/SearchBookList";
 
-function App ({$target}){
+export default function App ({$target}){
     this.state = [];
     this.$app = document.createElement('div');
     this.$app.className = 'search-box';
@@ -16,7 +17,7 @@ function App ({$target}){
             try{
                 if(keyword.length){
                     const { data } = await bookApi(keyword)
-                    await this.setState(data.documents, keyword)
+                    this.setState(data.documents, keyword)
                 }
             }catch (e){
                 throw new Error(e)
@@ -24,10 +25,15 @@ function App ({$target}){
         }
     })
 
+    const searchBookList = new SearchBookList({$app:this.$app, initialState:this.state})
+
     this.setState = (nextState, keyword) => {
         validate(nextState)
         this.state = nextState
+        this.watchState()
+    }
+
+    this.watchState = () => {
+        searchBookList.setState(this.state)
     }
 }
-
-new App({$target:document.querySelector('#main')})
