@@ -1,13 +1,38 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-    111
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>도서 검색하기</title>
+  </head>
+  <body>
+    <h1>책을 찾아보자!</h1>
+    <p></p>
+    <!-- JQuery CDN 가져오기 -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      $.ajax({
+        // 요청에 대한 정보
+        method: 'GET',
+        url: 'https://dapi.kakao.com/v3/search/book?target=title',
+        data: { query: '미움받을 용기' },
+        headers: { Authorization: 'KakaoAK a2ceaaa9b5d8805bcef9c6320a873f8c' },
+      }).done(function (msg) {
+        // 요청에 대한 응답
+        console.log(msg.documents[0].title);
+        console.log(msg.documents[0].thumbnail);
+        $('p').append('<strong>' + msg.documents[0].title + '</strong>');
+        $('p').append("<img src=' " + msg.documents[0].thumbnail + "'/>");
+      });
+    </script>
+  </body>
 </html>
