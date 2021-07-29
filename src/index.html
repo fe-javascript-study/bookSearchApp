@@ -12,6 +12,8 @@
   </head>
   <body>
     <h1>책을 찾아보자!</h1>
+    <input id="bookName" value="" type="text" />
+    <button id="search">검색</button>
     <p></p>
     <!-- JQuery CDN 가져오기 -->
     <script
@@ -20,18 +22,25 @@
       crossorigin="anonymous"
     ></script>
     <script>
-      $.ajax({
-        // 요청에 대한 정보
-        method: 'GET',
-        url: 'https://dapi.kakao.com/v3/search/book?target=title',
-        data: { query: '미움받을 용기' },
-        headers: { Authorization: 'KakaoAK a2ceaaa9b5d8805bcef9c6320a873f8c' },
-      }).done(function (msg) {
-        // 요청에 대한 응답
-        console.log(msg.documents[0].title);
-        console.log(msg.documents[0].thumbnail);
-        $('p').append('<strong>' + msg.documents[0].title + '</strong>');
-        $('p').append("<img src=' " + msg.documents[0].thumbnail + "'/>");
+      $(document).ready(function () {
+        $('#search').click(function () {
+          $.ajax({
+            // 요청에 대한 정보
+            method: 'GET',
+            url: 'https://dapi.kakao.com/v3/search/book?target=title',
+            //data: { query: '미움받을 용기' },
+            data: { query: $('#bookName').val() },
+            headers: {
+              Authorization: 'KakaoAK a2ceaaa9b5d8805bcef9c6320a873f8c',
+            },
+          }).done(function (msg) {
+            // 요청에 대한 응답
+            console.log(msg.documents[0].title);
+            console.log(msg.documents[0].thumbnail);
+            $('p').append('<strong>' + msg.documents[0].title + '</strong>');
+            $('p').append("<img src=' " + msg.documents[0].thumbnail + "'/>");
+          });
+        });
       });
     </script>
   </body>
