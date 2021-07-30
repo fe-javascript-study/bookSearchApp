@@ -4,6 +4,7 @@ function SearchBookList({ $app, initialState }){
     this.state = initialState
     this.$searchBook = document.createElement('ul');
     this.$searchBook.id = 'search-book'
+    this.storageItems = []
 
     $app.appendChild(this.$searchBook)
 
@@ -21,9 +22,9 @@ function SearchBookList({ $app, initialState }){
 
         }
 
-        bookData.map((item)=>{
+        bookData.map((item,idx)=>{
             li += `
-                <li>
+                <li class="list_${idx}">
                     <a href="${item.url}" target="_blank">
                         <h2>${item.title}</h2>
                         <div>
@@ -46,6 +47,20 @@ function SearchBookList({ $app, initialState }){
         })
 
         this.$searchBook.innerHTML = li
+
+        Array.from(this.$searchBook.children).map((item,idx)=>{
+            item.addEventListener('click',()=>{
+                if( this.storageItems.length < 5 ){
+                    this.storageItems.push(this.state[idx])
+                }
+                if(this.storageItems.length >= 5){
+                    this.storageItems.shift();
+                    this.storageItems.push(this.state[idx])
+                }
+
+                localStorage.setItem('bookHistory', JSON.stringify(this.storageItems))
+            })
+        })
     }
 }
 

@@ -36,4 +36,17 @@ export default function App ({$target}){
     this.watchState = () => {
         searchBookList.setState(this.state)
     }
+
+    this.bookHistoryRender = () => {
+        const history = document.createElement('div')
+        history.id = 'book-history'
+
+        const localItems = JSON.parse(localStorage.getItem('bookHistory'))
+
+        localItems.map((item,idx) => {
+
+        })
+
+        //$target.appendChild(items)
+    }
 }

@@ -1,6 +1,6 @@
 import App from './index'
-import css from './style.css'
+import './style.css'
 
 const $target = document.querySelector('#main')
 
-new App({$target})
+new App({$target}).bookHistoryRender()
