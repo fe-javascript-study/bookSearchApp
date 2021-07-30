@@ -22,3 +22,7 @@ export const validate = (data) => {
         }
     })
 }
+
+export const PriceTransfer = (num) =>{
+    return num.toLocaleString()
+}
