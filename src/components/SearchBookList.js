@@ -2,7 +2,7 @@ import { PriceTransfer } from '../util'
 
 function SearchBookList({ $app, initialState }){
     this.state = initialState
-    this.$searchBook = document.createElement('div');
+    this.$searchBook = document.createElement('ul');
     this.$searchBook.id = 'search-book'
 
     $app.appendChild(this.$searchBook)
@@ -14,8 +14,12 @@ function SearchBookList({ $app, initialState }){
 
     this.render = () => {
         const bookData = this.state;
-        const ul = document.createElement('ul')
         let li = ``;
+
+        if(!bookData.length){
+            return this.$searchBook.innerHTML = `<div>검색 결과가 없습니다.</div>`
+
+        }
 
         bookData.map((item)=>{
             li += `
@@ -41,8 +45,7 @@ function SearchBookList({ $app, initialState }){
             `
         })
 
-        ul.innerHTML = li
-        this.$searchBook.appendChild(ul)
+        this.$searchBook.innerHTML = li
     }
 }
 
