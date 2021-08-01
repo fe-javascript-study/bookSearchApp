@@ -1,3 +1,45 @@
 .hello {
     color: red;
 }
+
+
+* {
+  margin: 0;
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.button__save {
+  margin-top: auto;
+  background: #000;
+  color: #fff;
+  /* height: 200px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.search__form {
+  display: flex;
+  align-items: center;
+  background: #1F8CE6;
+  padding: 20px;
+}
+
+.search__label {
+  display: flex;
+  flex: 1;
+}
+
+.search__field {
+  flex: 1;
+  height: 32px;
+  padding: 0 10px;
+  border: 0;
+  background: #fff;
+}

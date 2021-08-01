@@ -2,12 +2,44 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+      .cart__list {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+      }
+    </style>
 </head>
 <body>
-    111
+  <div class="wrap">
+    <div class="search">
+      <form class="search__form">
+        <label class="search__label">
+          <input class="search__field" type="text" autofocus>
+        </label>
+        <button class="search__button" type="button">search</button>
+      </form>
+    </div>
+
+    <div class="list" style="display:flex;justify-content:space-between;">
+      <div class="book">
+        <h2>검색 된 책</h2>
+        <ol class="book__list">
+        </ol>
+      </div>
+  
+      <div class="storage">
+        <h2>저장 된 책</h2>
+        <ol class="storage__list"></ol>
+      </div>
+    </div>
+  
+    <div class="scroll-observer"></div>
+  </div>
+
+  <srcipt src="./index.js"></srcipt>
 </body>
 </html>
