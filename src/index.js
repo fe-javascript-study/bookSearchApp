@@ -9,6 +9,7 @@ export default function App ({$target}){
     this.state = [];
     this.$app = document.createElement('div');
     this.$app.className = 'search-box';
+    this.$history = document.createElement('div')
     $target.appendChild(this.$app)
 
     const searchInput = new SearchInput({
@@ -25,7 +26,29 @@ export default function App ({$target}){
         }
     })
 
-    const searchBookList = new SearchBookList({$app:this.$app, initialState:this.state})
+    this.bookHistoryRender = () => {
+        this.$history.classList.add('book-history')
+        let items = ``;
+
+        const localItems = JSON.parse(localStorage.getItem('bookHistory'))
+
+        localItems.map((item,idx) => {
+            items += `<a href="${item.url}" target="_blank">
+                    <div>
+                        <img src="${item.thumbnail}" alt="${item.title}"/>
+                    </div>
+                    <h2>${item.title}</h2>
+                </a>
+            `
+        })
+
+
+
+        this.$history.innerHTML = items
+        $target.appendChild(this.$history)
+    }
+
+    const searchBookList = new SearchBookList({$app:this.$app, initialState:this.state, onRender:this.bookHistoryRender})
 
     this.setState = (nextState, keyword) => {
         validate(nextState)
@@ -37,16 +60,4 @@ export default function App ({$target}){
         searchBookList.setState(this.state)
     }
 
-    this.bookHistoryRender = () => {
-        const history = document.createElement('div')
-        history.id = 'book-history'
-
-        const localItems = JSON.parse(localStorage.getItem('bookHistory'))
-
-        localItems.map((item,idx) => {
-
-        })
-
-        //$target.appendChild(items)
-    }
 }

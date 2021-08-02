@@ -1,10 +1,10 @@
 import { PriceTransfer } from '../util'
 
-function SearchBookList({ $app, initialState }){
+function SearchBookList({ $app, initialState, onRender }){
     this.state = initialState
     this.$searchBook = document.createElement('ul');
     this.$searchBook.id = 'search-book'
-    this.storageItems = []
+    this.storageItems = JSON.parse(localStorage.getItem('bookHistory')) || []
 
     $app.appendChild(this.$searchBook)
 
@@ -59,6 +59,7 @@ function SearchBookList({ $app, initialState }){
                 }
 
                 localStorage.setItem('bookHistory', JSON.stringify(this.storageItems))
+                onRender()
             })
         })
     }
